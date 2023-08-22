@@ -16,4 +16,4 @@ RUN apk --no-cache add ca-certificates
 COPY --from=builder /blocking-http-proxy /blocking-http-proxy
 
 ENTRYPOINT ["/blocking-http-proxy"]
-CMD ["-logtostderr"]
+CMD ["-v"]

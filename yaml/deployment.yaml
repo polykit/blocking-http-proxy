@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blocking-http-proxy
+  labels:
+    app: blocking-http-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blocking-http-proxy
+  template:
+    metadata:
+      labels:
+        app: blocking-http-proxy
+    spec:
+      containers:
+      - name: proxy
+        image: ghcr.io/polykit/blocking-http-proxy:latest
+        args:
+        - --listen=:8080
+        - --block=10.0.0.0/8,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+        - -v
+        ports:
+        - containerPort: 8080
